@@ -16,25 +16,7 @@ var builder = WebApplication.CreateBuilder(args);
         .AddSwaggerGen()
         .AddProblemDetails();                
 }
-// builder.Services.AddSwaggerGen(options =>
-// {
-//     options.SwaggerDoc("v1", new OpenApiInfo
-//     {
-//         Description = "Carter Sample API",
-//         Version = "v1",
-//         Title = "A Carter API to manage Actors/Films/Crew etc"
-//     });
-    
-//     options.DocInclusionPredicate((s, description) =>
-//     {
-//         foreach (var metaData in description.ActionDescriptor.EndpointMetadata)
-//         {
-//             if (metaData is IIncludeOpenApi) return true;            
-//         }
-//         return false;
-//     });
-    
-// });
+
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));

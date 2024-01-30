@@ -102,7 +102,7 @@ public static class CreateArticle
     //     });
     // }
 }
-public class Endpoint : ICarterModule
+public class CreateArticleEndpoint : ICarterModule
 {
     public void AddRoutes(IEndpointRouteBuilder app)
     {
