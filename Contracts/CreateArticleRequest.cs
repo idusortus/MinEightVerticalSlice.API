@@ -8,6 +8,9 @@ namespace Vertical.API.Contracts
     /// Another approach would be to place CreateArticleRequest in the  CreateArticle class,
     /// but this could incurr code duplication. Arguably we're duplicating code here, but
     /// it's a small amount.
+    /// 
+    /// Note that Guid ID is generated @ CreateArticle.Handler.
+    /// The Handler is the logic that handles the Command. It is where we do things like save to the database.
     /// </summary>
     public class CreateArticleRequest
     {

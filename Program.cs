@@ -17,7 +17,6 @@ var builder = WebApplication.CreateBuilder(args);
         .AddProblemDetails();                
 }
 
-
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
