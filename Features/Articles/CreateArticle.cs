@@ -3,6 +3,7 @@ using Carter;
 using Carter.OpenApi;
 using FluentValidation;
 using MediatR;
+using Vertical.API.Contracts;
 using Vertical.API.Database;
 using Vertical.API.Entities;
 using Vertical.API.Shared;
@@ -106,8 +107,17 @@ public class CreateArticleEndpoint : ICarterModule
 {
     public void AddRoutes(IEndpointRouteBuilder app)
     {
-        app.MapPost("api/articles", async (CreateArticle.Command command, ISender sender) =>
+        app.MapPost("api/articles", async (CreateArticleRequest request, ISender sender) =>
         {
+            // Could use Mapster, or another automapper, to map from CreateArticleRequest to CreateArticle.Command
+            // var command = request.Adapt<CreateArticle.Command>();
+            var command = new CreateArticle.Command
+            {
+                Title = request.Title,
+                Content = request.Content,
+                Tags = request.Tags
+            };
+
             var result = await sender.Send(command);
             if (result.IsFailure)
             {
