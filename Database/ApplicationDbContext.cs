@@ -12,14 +12,16 @@ public class ApplicationDbContext : DbContext
     }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        // This looks more like JSON but it is rather hard to read
+        // This works for now, but it is rather hard to read and I added mystery Bangs to make it work...
+        // TODO: Reevaluate this implementation
+        // https://learn.microsoft.com/en-us/ef/core/modeling/value-conversions?tabs=data-annotations#built-in-converters
         modelBuilder.Entity<Article>()
             .Property(article=>article.Tags)
             .HasConversion( 
-                v => JsonSerializer.Serialize(v, (JsonSerializerOptions)null),
-                v => JsonSerializer.Deserialize<List<string>>(v, (JsonSerializerOptions)null),
+                v => JsonSerializer.Serialize(v, (JsonSerializerOptions)null!),
+                v => JsonSerializer.Deserialize<List<string>>(v, (JsonSerializerOptions)null!)!,
                 new ValueComparer<ICollection<string>>(
-                    (c1, c2) => c1.SequenceEqual(c2),
+                    (c1, c2) => c1!.SequenceEqual(c2!),
                     c => c.Aggregate(0, (a, v) => HashCode.Combine(a, v.GetHashCode())),
                     c => (ICollection<string>)c.ToList()));                    
 
