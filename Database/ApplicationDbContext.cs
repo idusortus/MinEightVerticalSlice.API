@@ -25,18 +25,20 @@ public class ApplicationDbContext : DbContext
                     c => c.Aggregate(0, (a, v) => HashCode.Combine(a, v.GetHashCode())),
                     c => (ICollection<string>)c.ToList()));                    
 
-        // this works but it adds it as CSV string
+        // this is functional but it adds it to the DB as CSV string
         // modelBuilder.Entity<Article>()
         //     .Property(article => article.Tags)
         //     .HasConversion(
         //         tags => string.Join(',', tags),
         //         tags => tags.Split(',', StringSplitOptions.RemoveEmptyEntries).ToList()
         //     );
-        // modelBuilder.Entity<Article>(builder => builder.OwnsOne(a => a.Tags, b => b.ToJson())); // Throws an error: Invalid token type: 'StartObject'.
+
+        // Throws an error: Invalid token type: 'StartObject'.
+        // modelBuilder.Entity<Article>(builder => builder.OwnsOne(a => a.Tags, b => b.ToJson())); 
 
         // // Complex objects as JSON
-        // // But what if you want to store the author as JSON? This is also possible with Entity Framework. And not only since version 8,
-        // // but since version 7 (well, technically since forever, as you can use ValueConverters):
+        // // But what if you want to store the author as JSON? This is also possible with Entity Framework. 
+        // // https://steven-giesel.com/blogPost/5bf635cb-3533-4207-905f-81eb86512219
         // modelBuilder.Entity<BlogPost>()
         //     .OwnsOne(p => p.Author, b => b.ToJson());
 
