@@ -69,7 +69,7 @@ public class GetArticleEndpoint : ICarterModule
             
             return (result.IsFailure)
                 ? Results.NotFound(result.Error)
-                : TypedResults.Ok(result.Value);
+                : TypedResults.Ok(result);
 
         });
     }

@@ -103,7 +103,7 @@ public class CreateArticleEndpoint : ICarterModule
 
             return (result.IsFailure)
                 ? Results.BadRequest(result.Error)
-                : TypedResults.Created(result.Value.ToString());
+                : TypedResults.Ok(result);
         });
     }
 }

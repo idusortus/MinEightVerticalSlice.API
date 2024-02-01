@@ -53,7 +53,9 @@ public class GetAllArticlesEndpoint : ICarterModule
         {
             var query = new GetAllArticles.Query();
             var result = await sender.Send(query);
-            return result.Value;
+            return (result.IsFailure)
+                ? Results.BadRequest(result.Error)
+                : TypedResults.Ok(result); 
         });
     }
 }
